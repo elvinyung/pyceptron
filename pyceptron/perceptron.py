@@ -38,6 +38,25 @@ class SingleLayerPerceptron:
         '''
         return self.activate(self.weight_dot_product(vector))
 
+    def learn_from(self, input_vector, expected_output):
+        '''
+        Learn from a single input-output pair, adjusting the perceptron's
+        weights and biases.
+        Returns the sample error, i.e. the discrepancy between the expected
+        output and the perceptron output.
+        '''
+        output = self.get_output(input_vector)
+        sample_error = expected_output - output
+
+        if sample_error:
+            # update weights and bias
+            adjustment = sample_error * self.learning_rate
+            self.weights = tuple(w + (adjustment * x)
+                for (w, x) in zip(self.weights, vector))
+            self.bias += adjustment
+
+        return sample_error
+
     def iterate(self, dataset):
         '''
         Run one iteration of training.
@@ -49,18 +68,8 @@ class SingleLayerPerceptron:
 
         iter_error = 0.0
         for example in dataset:
-            # compare expected and actual outputs.
-            vector = example['input']
-            output = self.get_output(vector)
-            expected_output = example['output']
-            sample_error = expected_output - output
-
-            if sample_error:
-                # update weights and bias
-                adjustment = sample_error * self.learning_rate
-                self.weights = tuple(w + (adjustment * x)
-                    for (w, x) in zip(self.weights, vector))
-                self.bias += adjustment
+            # learn from each input-output pair.
+            sample_error = self.learn_from(example['input'], example['output'])
 
             # record iteration error
             iter_error += abs(sample_error)
