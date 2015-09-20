@@ -54,7 +54,7 @@ class SingleLayerPerceptron:
             # update weights and bias
             adjustment = sample_error * self.learning_rate
             self.weights = tuple(w + (adjustment * x)
-                for (w, x) in zip(self.weights, vector))
+                for (w, x) in zip(self.weights, input_vector))
             self.bias += adjustment
 
         return sample_error
