@@ -5,16 +5,16 @@ class VectorLengthMismatch(Exception):
     pass
 
 class SingleLayerPerceptron:
-    def __init__(self, dimensions=2, learning_rate=0.1, threshold=0.5):
+    def __init__(self, dimensions=2, learning_rate=0.1, threshold=0.5,
+            error_threshold=0.0):
         self.dimensions = dimensions
         self.weights = tuple(random.random() for d in range(self.dimensions))
         self.bias = 1.0
         self.threshold = threshold
-
         self.learning_rate = learning_rate
 
         self.error = 0.0
-        self.error_threshold = 0.0
+        self.error_threshold = error_threshold
 
     def activate(self, value):
         '''
