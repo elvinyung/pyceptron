@@ -25,6 +25,8 @@ def main():
             assert output == (i and j)
 
     print('All tests passed!')
+    print('Final weights are', perceptron.weights)
+    print('Final bias is', perceptron.bias)
 
 
 if __name__ == '__main__':
