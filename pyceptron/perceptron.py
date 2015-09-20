@@ -16,6 +16,8 @@ class SingleLayerPerceptron:
         self.error = 0.0
         self.error_threshold = error_threshold
 
+        self.num_iterations = 0
+
     def activate(self, value):
         '''
         Basic Heaviside activation function.
@@ -85,9 +87,8 @@ class SingleLayerPerceptron:
         i.e. continuously iterate until the error is below threshold,
         or the max_iterations has been reached.
         '''
-        num_iterations = 0
         iter_error = self.error_threshold + 1.0 # hack
-        while ((max_iterations <= 0 or num_iterations < max_iterations) and
+        while ((max_iterations <= 0 or self.num_iterations < max_iterations) and
             (iter_error > self.error_threshold)):
             iter_error = self.iterate(dataset)
-            num_iterations += 1
+            self.num_iterations += 1
