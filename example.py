@@ -15,6 +15,7 @@ def main():
     print('Training perceptron...')
     perceptron = SingleLayerPerceptron()
     perceptron.train(raw_dataset)
+    print('Perceptron trained in', perceptron.num_iterations, 'iterations')
 
     print('Perceptron outputs:')
     for i in range(0, 2):
